@@ -75,7 +75,8 @@ a#download {
     cursor: pointer;
 }
 .form button:hover,.form button:active,.form button:focus {
-    background: #FAE7E7;
+    background: #fa8892;
+    color: Red;
 }
 .form .message {
     margin: 15px 0 0;
@@ -124,6 +125,7 @@ a#download {
 }
 body {
     background-color: #3B0B17;
+    margin: 0px;
     /*background: -webkit-linear-gradient(right, #76b852, #8DC26F);
     background: -moz-linear-gradient(right, #76b852, #8DC26F);
     background: -o-linear-gradient(right, #76b852, #8DC26F);
@@ -132,3 +134,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+a {
+     color: #3B0B17;;
+ }
