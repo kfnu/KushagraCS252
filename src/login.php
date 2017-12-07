@@ -19,7 +19,9 @@ if (isset($_POST['submit'])) {
         //Selecting Database
 
         require_once("model/config.php");
+        echo $db_host;
         $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+        echo $username;
         if (!$connection)
         {
             echo "Could not connect to database : ".$db_name." - ".mysqli_errno($connection)." - ".mysqli_error($connection);

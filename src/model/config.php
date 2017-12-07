@@ -5,6 +5,8 @@
  * Date: 12/3/2017
  * Time: 5:16 PM
  */
+
+
 require_once("setting.php");
 
 //require_once("model/".$dbtype.".php");
@@ -17,6 +19,7 @@ $dbconfig = array(
     'pass' => $db_pass,
     'name' => $db_name
 );
+echo "qwertyuiop";
 $db = db_mysql::getInstance();
 
 if(!isset($language)) $langauge = "en";
