@@ -26,6 +26,11 @@
     box-sizing: border-box;
     font-size: 14px;
 }
+.form input[type="submit"]:hover
+{
+    background: #fa8892;/*#FAE7E7;*/
+    color: Red;
+}
 .form button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
@@ -36,12 +41,13 @@
     padding: 15px;
     color: #FFFFFF;
     font-size: 14px;
-   -webkit-transition: all 0.3 ease;
+    -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
     cursor: pointer;
 }
 .form button:hover,.form button:active,.form button:focus {
-    background: #FAE7E7;
+    background: #fa8892;/*#FAE7E7;*/
+    color: Red;
 }
 .form .message {
     margin: 15px 0 0;
@@ -97,4 +103,8 @@ body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    margin: 0px;
+}
+a {
+    color: #3B0B17;;
 }

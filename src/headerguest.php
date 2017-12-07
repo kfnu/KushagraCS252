@@ -5,7 +5,6 @@
  * Date: 12/7/17
  * Time: 12:57 AM
  */
-
 echo "<table width='100%' border='0' bgcolor='#ffffff'>";
 echo "<tr>";
 echo "<td width='100%' align='center'>";
