@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
     {
         $username=$_POST['username'];
         $password=$_POST['password'];
-
+        //echo $username;
         //Selecting Database
 
         require_once("model/config.php");
@@ -39,8 +39,9 @@ if (isset($_POST['submit'])) {
             $rows = mysqli_num_rows($result);
 
             if ($rows == 1) {
-                //$_SESSION['login'] = $username; // Initializing Session
-                header("location: /src/foodlist.html"); // Redirecting To Other Page
+                echo "qpwoeipqowe";
+                $_SESSION['login'] = $username; // Initializing Session
+                header("location: foodlist.html"); // Redirecting To Other Page
             } else {
                 $error = "Username or Password is invalid";
             }
@@ -76,7 +77,7 @@ if (isset($_POST['submit'])) {
             <button>create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
         </form>-->
-        <form class="login-form" method="post">
+        <form class="login-form" method="post" action="">
             <input type="text" name="username" value="<?php echo $_POST["username"]; ?>" placeholder="username"/>
             <input type="password" name="password" placeholder="password"/>
             <input name="submit" type="submit" value=" Login ">
