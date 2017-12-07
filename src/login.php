@@ -18,10 +18,14 @@ if (isset($_POST['submit'])) {
         //echo $username;
         //Selecting Database
 
-        require_once("model/config.php");
-        echo $db_host;
+        //require_once("model/config.php");
+        $db_host = "us-cdbr-iron-east-05.cleardb.net";
+        $db_user = "bf980adbdc50be";
+        $db_pass = "867b73f4";
+        $db_name = "heroku_5945d53bb9e3d51";
+        //echo $db_host;
         $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-        echo $username;
+        //echo $username;
         if (!$connection)
         {
             echo "Could not connect to database : ".$db_name." - ".mysqli_errno($connection)." - ".mysqli_error($connection);
@@ -31,9 +35,10 @@ if (isset($_POST['submit'])) {
 
         $username = stripslashes($username);
         $password = stripslashes($password);
-        $username = mysql_real_escape_string($username);
-        $password = mysql_real_escape_string($password);
-
+        //echo $username;
+        //$username = mysql_real_escape_string($username);
+        //$password = mysql_real_escape_string($password);
+        //echo $username;
 // SQL query to fetch information of registerd users and finds user match.
         $query = "select * from webuser where (pwd='$password' AND login='$username');";
         $result = mysqli_query($connection,$query);
@@ -41,7 +46,7 @@ if (isset($_POST['submit'])) {
             $rows = mysqli_num_rows($result);
 
             if ($rows == 1) {
-                echo "qpwoeipqowe";
+                //echo "qpwoeipqowe";
                 $_SESSION['login'] = $username; // Initializing Session
                 header("location: foodlist.html"); // Redirecting To Other Page
             } else {
