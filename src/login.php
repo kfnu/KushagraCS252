@@ -39,8 +39,8 @@ if (isset($_POST['submit'])) {
             $rows = mysqli_num_rows($result);
 
             if ($rows == 1) {
-                $_SESSION['login'] = $username; // Initializing Session
-                header("location: foodlist.html"); // Redirecting To Other Page
+                //$_SESSION['login'] = $username; // Initializing Session
+                header("location: /src/foodlist.html"); // Redirecting To Other Page
             } else {
                 $error = "Username or Password is invalid";
             }
