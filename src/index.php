@@ -6,19 +6,21 @@
  * Time: 11:39 PM
  */
 
-echo "Hello?";
+//echo "Hello?";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/guest.css">
     <script src="js/login.js"></script>
     <title>Login</title>
 </head>
 <body>
+<div class="header">
 
+</div>
 <div class="login-page">
     <div class="form">
         <!--<form class="register-form">
