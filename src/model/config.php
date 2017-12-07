@@ -19,7 +19,7 @@ $dbconfig = array(
     'pass' => $db_pass,
     'name' => $db_name
 );
-echo "qwertyuiop";
+//echo "qwertyuiop";
 $db = db_mysql::getInstance();
 
 if(!isset($language)) $langauge = "en";

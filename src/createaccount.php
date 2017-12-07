@@ -19,7 +19,11 @@ if (isset($_POST['submit'])) {
         $username=$_POST['username'];
         $password=$_POST['password'];
         $email=$_POST['email'];
-        require_once("model/config.php");
+        //require_once("model/config.php");
+        $db_host = "us-cdbr-iron-east-05.cleardb.net";
+        $db_user = "bf980adbdc50be";
+        $db_pass = "867b73f4";
+        $db_name = "heroku_5945d53bb9e3d51";
         $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
         if (!$connection)
         {
@@ -42,9 +46,9 @@ if (isset($_POST['submit'])) {
                 $username = stripslashes($username);
                 $password = stripslashes($password);
                 $email = stripslashes($email);
-                $username = mysql_real_escape_string($username);
-                $password = mysql_real_escape_string($password);
-                $email = mysql_real_escape_string($email);
+                //$username = mysql_real_escape_string($username);
+                //$password = mysql_real_escape_string($password);
+                //$email = mysql_real_escape_string($email);
 // Selecting Database
                 //$db = mysqli_select_db("company", $connection);
 // SQL query to fetch information of registerd users and finds user match.
@@ -52,7 +56,7 @@ if (isset($_POST['submit'])) {
                 $result = mysqli_query($connection,$query);
                 if($result) {
                     $_SESSION['login'] = $username; // Initializing Session
-                    header("location: profile.php"); // Redirecting To Other Page
+                    header("location: login.php"); // Redirecting To Other Page
                 }else{
                     echo $query."<br/>";
                     echo "Sql query failed : ".$db_name." - ".mysqli_errno($connection)." - ".mysqli_error($connection);
