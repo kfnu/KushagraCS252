@@ -11,20 +11,24 @@ if(!isset($_SESSION["login"])){
 }
 //session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
+$successMsg='';
 //echo "username=".$_POST['username'];
 if (isset($_POST['submit'])) {
-    //echo "username=".$_POST['username'];
-    echo "date = ".$_POST['caldate'];
-    echo "meal = ".$_POST['meal']."<br/>";
-    echo "item id = ".$_POST['item']."<br/>";
-    echo "quantity = ".$_POST['qua']."<br/>";
+    //echo "date = ".$_POST['caldate'];
+    //echo "meal = ".$_POST['meal']."<br/>";
+    //echo "item id = ".$_POST['item']."<br/>";
+    //echo "quantity = ".$_POST['qua']."<br/>";
     if (empty($_POST['caldate']) || empty($_POST['meal']) || empty($_POST['qua']) || empty($_POST['item'])) {
         $error = "Date or Meal or Item or Quantity is invalid";
     }
     else
     {
 // Define $username and $password
-        $date=$_POST['caldate'];
+        $dateArray = explode("/",$_POST['caldate']);
+        //$date = new DateTime("'".$dateArray[2].'-'.$dateArray[1].'-'.$dateArray[0]."'");
+        $mydate = mktime(0, 0, 0, $dateArray[1], $dateArray[0], $dateArray[2]);
+        $date = date('Y-m-d h:i:s',$mydate);
+        //echo "mealdate=".$date;//.date("Y", $mydate) . "-" . date("m", $mydate). "-" . date("d", $mydate);;//$dateArray[2].'-'.$dateArray[1].'-'.$dateArray[0];
         $meal=$_POST['meal'];
         $item=$_POST['item'];
         $qua=$_POST['qua'];
@@ -54,42 +58,23 @@ if (isset($_POST['submit'])) {
                 $foodfat=$row['fat'];
                 $foodcalories=$row['calories'];
                 $factor = floatval($qua)/floatval($foodamount);
-                echo "factor=".$factor."<br/>";
+                //echo "factor=".$factor."<br/>";
                 $calcprotein=$factor*floatval($foodprotein);
                 $calccarb=$factor*floatval($foodcarb);
                 $calcfat=$factor*floatval($foodfat);
                 $calccalories=$factor*floatval($foodcalories);
                 $query = "INSERT INTO userfood (Guid, login, itemid, mealdate, meal, quantity, unit, calories, protein, carbohydrate, fat)
-                  VALUES(uuid(), '".("".$_SESSION['login'])."', ".$item.", '".$_POST['caldate']."', '".$_POST['meal']."', ".
+                  VALUES(uuid(), '".("".$_SESSION['login'])."', ".$item.", '".$date."', '".$_POST['meal']."', ".
                     $qua.", '".$unit."', ".$calccalories.", ".$calcprotein.", ".$calccarb.", ".$calcfat.");";
                 $result = mysqli_query($connection,$query);
                 if($result) {
                     //$_SESSION['login'] = $username; // Initializing Session
                     //header("location: login.php"); // Redirecting To Other Page
+                    $successMsg = "Data saved";
                 }else{
                     echo $query."<br/>";
                     echo "Sql query failed : ".$db_name." - ".mysqli_errno($connection)." - ".mysqli_error($connection);
                 }
-                /*echo $row['amount']."<br/>";
-                echo $row['protein']."<br/>";;
-                echo $row['carbohydrate']."<br/>";;
-                echo $row['fat']."<br/>";;
-                echo $row['calories']."<br/>";*/
-                //$error = "Login you requested is already taken.";
-            }else{
-                // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-                //$connection = mysqli_connect("localhost", "root", "");
-                //$connection = mysqli_connect("localhost", "root", "");
-// To protect MySQL injection for Security purpose
-                $username = stripslashes($username);
-                $password = stripslashes($password);
-                $email = stripslashes($email);
-                //$username = mysql_real_escape_string($username);
-                //$password = mysql_real_escape_string($password);
-                //$email = mysql_real_escape_string($email);
-// Selecting Database
-                //$db = mysqli_select_db("company", $connection);
-// SQL query to fetch information of registerd users and finds user match.
             }
         }
         mysqli_close($connection); // Closing Connection
@@ -109,7 +94,7 @@ if (isset($_POST['submit'])) {
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/calorie.css">
-    <title>Create Account</title>
+    <title>Add Calorie</title>
     <script>
         $(function() {
             $("#caldate").datepicker({changeMonth: true, changeYear: true, defaultDate: '1/1/2018', dateFormat: 'mm/dd/yy' });
@@ -187,6 +172,9 @@ if (isset($_POST['submit'])) {
     </div>
     <div style="width: 100%; text-align:center;">
         <span name="spMsg" style="color: #FFFFFF;"><?php echo $error; ?></span>
+    </div>
+    <div style="width: 100%; text-align:center;">
+        <span name="spSuccessMsg" style="color: #FFFFFF;"><?php echo $successMsg; ?></span>
     </div>
 </div>
 
