@@ -97,7 +97,7 @@ if (isset($_POST['submit'])) {
     <title>Add Calorie</title>
     <script>
         $(function() {
-            $("#caldate").datepicker({changeMonth: true, changeYear: true, defaultDate: '1/1/2018', dateFormat: 'mm/dd/yy' });
+            $("#caldate").datepicker({changeMonth: true, changeYear: true, defaultDate: new Date(), dateFormat: 'mm/dd/yy' });
         });
     </script>
 </head>

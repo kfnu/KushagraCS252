@@ -22,9 +22,11 @@
   <?php include("headerguest.php");?>
 </div>
 <div class="login-page">
-  <p style="color:white;font-family: Roboto, sans-serif; font-size: 16px; margin-left: 30px; margin-right: 30px; margin-top: 10px;">
-    Welcome to Calorie Counter. This project is made by Kushagra for CS252 Lab6. This web app is used to track calorie intake by different users assigned for different dates based on various food items saved in a MySQL Database.
-  </p>
+  <p style="color:white;font-family: Roboto, sans-serif; font-size: 16px; margin-left: 30px; margin-right: 30px; margin-top: 10px; text-align: center">
+      Welcome to Calorie Counter.</p>
+    <p style="color:white;font-family: Roboto, sans-serif; font-size: 16px; margin-left: 30px; margin-right: 30px; margin-top: 10px; text-align: center">
+    This project is made by Kushagra for CS252 Lab6. This web app is used to track calorie intake by different users assigned for different dates based on various food items saved in a MySQL Database.
+    </p></br>
   <div class="form">
     <!--<form class="register-form">
         <input type="text" placeholder="name"/>
