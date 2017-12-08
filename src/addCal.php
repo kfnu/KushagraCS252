@@ -123,39 +123,66 @@ if (isset($_POST['submit'])) {
 
         <form class="login-page" method="post"> <!--<div class = "datepickerdemo" ng-controller = "dateController as ctrl"
                  layout = "column" ng-cloak>-->
-            <input type="text" style='width:108px;background-color: #fffbcc;' name="caldate" value="<?=$_POST['caldate']?>" id="caldate">&nbsp;(mm/dd/yyyy)
-            </br></br>
-            <select name="meal" value="<?php echo $_POST["meal"]; ?>">
-                <option value="">Select...</option>
-                <option value="B">Breakfast</option>
-                <option value="L">Lunch</option>
-                <option value="D">Dinner</option>
-                <option value="O">Other</option>
-            </select>
-            <?php
-            $db_host = "us-cdbr-iron-east-05.cleardb.net";
-            $db_user = "bf980adbdc50be";
-            $db_pass = "867b73f4";
-            $db_name = "heroku_5945d53bb9e3d51";
-            $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-            $query = "SELECT id, CONCAT(item, ' (',unit,')') AS itemMod FROM fooditem ORDER By item ASC;";
-            //$result = conn($query);
-            //if (($result)||(mysql_errno == 0))
-            $result = mysqli_query($conn,$query);
-            //$result = $mysqli->query($query);
-            if ($result) {
-                echo "<select name='item' id='item' value=".$_POST["item"].">";
-                echo "<option value='" . "0" . "' selected=\"selected\"'>" . "Select" . "</option>";
-                while ($row = mysqli_fetch_array($result)) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['itemMod'] . "</option>";
-                }
-                echo "</select>";
-            }
-            mysqli_close($conn);
-            ?>
+            <table style="align: center;">
+                <tr>
+                    <td style="align-content: center">
+                        <select name="meal" value="<?php echo $_POST["meal"]; ?>">
+                            <option value="">Select...</option>
+                            <option value="B">Breakfast</option>
+                            <option value="L">Lunch</option>
+                            <option value="D">Dinner</option>
+                            <option value="O">Other</option>
+                        </select>
+                    </td>
+                </tr>
 
-            <input style="border-color: #3B0B17; border-width: thick;" type="text" name="qua" value="<?php echo $_POST["qua"]; ?>" placeholder="quantity"/>
-            <input name="submit" type="submit" value=" Add ">
+                <tr>
+                    <td>
+                        <?php
+                        $db_host = "us-cdbr-iron-east-05.cleardb.net";
+                        $db_user = "bf980adbdc50be";
+                        $db_pass = "867b73f4";
+                        $db_name = "heroku_5945d53bb9e3d51";
+                        $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+                        $query = "SELECT id, CONCAT(item, ' (',unit,')') AS itemMod FROM fooditem ORDER By item ASC;";
+                        //$result = conn($query);
+                        //if (($result)||(mysql_errno == 0))
+                        $result = mysqli_query($conn,$query);
+                        //$result = $mysqli->query($query);
+                        if ($result) {
+                            echo "<select name='item' id='item' value=".$_POST["item"].">";
+                            echo "<option value='" . "0" . "' selected=\"selected\"'>" . "Select" . "</option>";
+                            while ($row = mysqli_fetch_array($result)) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['itemMod'] . "</option>";
+                            }
+                            echo "</select>";
+                        }
+                        mysqli_close($conn);
+                        ?>
+                    </td>
+                </tr>
+                    <tr>
+                    <td>
+                        <input type="text" style='width:108px;background-color: #fffbcc;' name="caldate" value="<?=$_POST['caldate']?>" id="caldate">&nbsp;(mm/dd/yyyy)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input style="border-color: #3B0B17; border-width: thick;" type="text" name="qua" value="<?php echo $_POST["qua"]; ?>" placeholder="quantity"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input name="submit" type="submit" value=" Add ">
+                    </td>
+                </tr>
+
+                <!--</br></br>-->
+
+
+
+            </table>
+
         </form>
         <!--<input type="text" name="username" placeholder="name"/>
         <input type="password" name="password" placeholder="password"/>
