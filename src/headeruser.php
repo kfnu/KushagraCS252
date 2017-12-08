@@ -19,12 +19,19 @@ echo "</tr>";
 echo "</table>";
 echo "</td>";*/
 echo "</tr>";
-echo "<tr style='background-color: #ffcccc'><td width='50%'></td>";
-echo "<td style='white-space: nowrap; '><a href='fooditem.php'>Food Item</a>&nbsp;<a href='addCal.php'>Add Calories</a></td>";
-echo "<td style='white-space: nowrap; '></td>";
-echo "<td style='white-space: nowrap; '><a href='editCal.php'>Edit Calories</a></td>";
-echo "<td style='white-space: nowrap; '><a href='deleteCal.php'>Delete Calories</a></td>";
-echo "<td><a href='report.php'>Report</a></td></tr>";
+
+/*echo "<a href='fooditem.php'>Food Item</a>&nbsp;<a href='addCal.php'>Add Calories</a>";
+echo "<a href='editCal.php'>Edit Calories</a>";
+echo "<a href='deleteCal.php'>Delete Calories</a>";
+echo "<a href='report.php'>Report</a>";*/
+echo "<tr style='background-color: #ffcccc'>";
+echo "<td style='white-space: nowrap; text-align: center;'><a href='foodlist.php'>Food Item</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='addCal.php'>Add Calories</a>    ";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='editCal.php'>Edit Calories</a>    ";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='deleteCal.php'>Delete Calories</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   ";
+echo "<a href='report.php'>Report</a></td>";
+echo "</tr>";
+
+/*echo "<td style='white-space: nowrap; '></td>";*/
 
 echo "</table>";
 ?>

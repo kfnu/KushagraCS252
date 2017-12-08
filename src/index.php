@@ -22,8 +22,8 @@
   <?php include("headerguest.php");?>
 </div>
 <div class="login-page">
-  <p style="color:white;font-family: Roboto, sans-serif; font-size: 14px;">
-    Welcome to Calorie Counter...
+  <p style="color:white;font-family: Roboto, sans-serif; font-size: 16px;">
+    Welcome to Calorie Counter. This project is made by Kushagra for CS252 Lab6. This web app is used to track calorie intake by different users assigned for different dates based on various food items saved in a MySQL Database.
   </p>
   <div class="form">
     <!--<form class="register-form">
@@ -40,7 +40,7 @@
       <br/><br/>
       <button><span style="font-family: 'American Typewriter'" size="9px"><a href="createaccount.php">Create Account</a></span></button>
       <br/><br/>
-      <button><span style="font-family: 'American Typewriter'" size="9px"><a href="contact.php">Contact</a></span></button>
+      <button><span style="font-family: 'American Typewriter'" size="9px"><a href="contact.html">Contact</a></span></button>
       <!--<p class="message">Not registered? <a href="createaccount.html">Create an account</a></p>-->
     </form>
   </div>
