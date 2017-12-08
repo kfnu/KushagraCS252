@@ -194,10 +194,10 @@ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 if (!$conn) {
 die ('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-$sql = 'SELECT userfood.mealdate AS mealdate, meal, quantity, userfood.unit AS unit,
+$sql = "SELECT Guid, DATE_FORMAT(userfood.mealdate, '%m/%d/%y') AS mealdate, meal, quantity, userfood.unit AS unit,
       userfood.calories AS mycalories, userfood.protein as myprotein,
       userfood.carbohydrate AS mycarb, userfood.fat AS myfat FROM userfood INNER JOIN fooditem
-      ON userfood.itemid=fooditem.id;';//' WHERE(userfood.login='.$_SESSION['login'].');';
+      ON userfood.itemid=fooditem.id WHERE(userfood.login='".$_SESSION['login']."');";
 $query = mysqli_query($conn, $sql);
 if (!$query) {
 die ('SQL Database Error: ' . mysqli_error($conn));
@@ -209,8 +209,8 @@ die ('SQL Database Error: ' . mysqli_error($conn));
     <caption class="title"></caption>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Item</th>
+        <th>Edit</th>
+        <th>Date</th>
         <th>Meal</th>
         <th>Quantity</th>
         <th>Unit</th>
@@ -228,7 +228,7 @@ die ('SQL Database Error: ' . mysqli_error($conn));
     {
         $amount  = $row['amount'] == 0 ? '' : number_format($row['amount']);
         echo '<tr>
-					<td>'.$row['id'].'</td>
+					<td>'.'<a href='.'edituserfood.php?id='.$row['Guid'].'>Edit</a>'.'</td>
 					<td align="center">'.$row['mealdate'].'</td>
 					<td align="center">'.$row['meal'].'</td>
 					<td align="right">'.$row['quantity'].'</td>
@@ -253,60 +253,7 @@ die ('SQL Database Error: ' . mysqli_error($conn));
     <p style="color:white;font-family: Roboto, sans-serif; font-size: 14px;height:20px;">
         &nbsp;
     </p>
-
-
-    <div class="form">
-
-
-        <form class="login-page" method="post"> <!--<div class = "datepickerdemo" ng-controller = "dateController as ctrl"
-                 layout = "column" ng-cloak>-->
-            <input type="text" style='width:108px;background-color: #fffbcc;' name="caldate" value="<?=$_POST['caldate']?>" id="caldate">&nbsp;(mm/dd/yyyy)
-            </br></br>
-            <select name="meal" value="<?php echo $_POST["meal"]; ?>">
-                <option value="">Select...</option>
-                <option value="B">Breakfast</option>
-                <option value="L">Lunch</option>
-                <option value="D">Dinner</option>
-                <option value="O">Other</option>
-            </select>
-            <?php
-            $db_host = "us-cdbr-iron-east-05.cleardb.net";
-            $db_user = "bf980adbdc50be";
-            $db_pass = "867b73f4";
-            $db_name = "heroku_5945d53bb9e3d51";
-            $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-            $query = "SELECT id, CONCAT(item, ' (',unit,')') AS itemMod FROM fooditem ORDER By item ASC;";
-            //$result = conn($query);
-            //if (($result)||(mysql_errno == 0))
-            $result = mysqli_query($conn,$query);
-            //$result = $mysqli->query($query);
-            if ($result) {
-                echo "<select name='item' id='item' value=".$_POST["item"].">";
-                echo "<option value='" . "0" . "' selected=\"selected\"'>" . "Select" . "</option>";
-                while ($row = mysqli_fetch_array($result)) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['itemMod'] . "</option>";
-                }
-                echo "</select>";
-            }
-            mysqli_close($conn);
-            ?>
-
-            <input style="border-color: #3B0B17; border-width: thick;" type="text" name="qua" value="<?php echo $_POST["qua"]; ?>" placeholder="quantity"/>
-            <input name="submit" type="submit" value=" Add ">
-        </form>
-        <!--<input type="text" name="username" placeholder="name"/>
-        <input type="password" name="password" placeholder="password"/>
-        <input type="text" name="email" placeholder="email address"/>
-        <input name="submit" type="submit" value=" Create ">
-        <p class="message">Already registered? <a href="login.php">Sign In</a></p>
-    </form>
-    <!--<form class="login-form">
-        <input type="text" placeholder="username"/>
-        <input type="password" placeholder="password"/>
-        <button>login</button>
-        <p class="message">Not registered? <a href="#">Create an account</a></p>
-    </form>-->
-    </div>
+    
     <div style="width: 100%; text-align:center;">
         <span name="spMsg" style="color: #FFFFFF;"><?php echo $error; ?></span>
     </div>
