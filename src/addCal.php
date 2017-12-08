@@ -14,15 +14,16 @@ if (isset($_POST['submit'])) {
     echo "meal = ".$_POST['meal']."<br/>";
     echo "item id = ".$_POST['item']."<br/>";
     echo "quantity = ".$_POST['qua']."<br/>";
-    if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
-        $error = "Username or Password or Email is invalid";
+    if (empty($_POST['caldate']) || empty($_POST['meal']) || empty($_POST['qua']) || empty($_POST['item'])) {
+        $error = "Date or Meal or Item or Quantity is invalid";
     }
     else
     {
 // Define $username and $password
-        $username=$_POST['username'];
-        $password=$_POST['password'];
-        $email=$_POST['email'];
+        $date=$_POST['caldate'];
+        $meal=$_POST['meal'];
+        $item=$_POST['item'];
+        $qua=$_POST['qua'];
         //require_once("model/config.php");
         $db_host = "us-cdbr-iron-east-05.cleardb.net";
         $db_user = "bf980adbdc50be";
@@ -36,12 +37,43 @@ if (isset($_POST['submit'])) {
         }//else{
         //echo "Connected to database : ";
         //}
-        $query = "SELECT * FROM webuser WHERE (login='$username');";
+        $query = "SELECT * FROM fooditem WHERE (id=$item);";
         $result = mysqli_query($connection,$query);
         if($result) {
             $rows = mysqli_num_rows($result);
-            if ($rows > 0) {
-                $error = "Login you requested is already taken.";
+            if ($rows == 1) {
+                $row=mysqli_fetch_array($result);
+                $unit=$row['unit'];
+                $foodamount=$row['amount'];
+                $foodprotein=$row['protein'];
+                $foodcarb=$row['carbohydrate'];
+                $foodfat=$row['fat'];
+                $foodcalories=$row['calories'];
+                $factor = $qua/$amount;
+                $calcprotein=$factor*$foodprotein;
+                $calccarb=$factor*$foodcarb;
+                $calcfat=$factor*$foodfat;
+                $calccalories=$factor*$foodcalories;
+
+                $query = "INSERT INTO userfood (Guid, login, itemid, mealdate, meal, quantity, unit, calories, protein, carbohydrate, fat) 
+                  VALUES(uuid(), '".(""+$_SESSION['login'])."', ".$item.", '".$_POST['caldate']."', '".$_POST['meal']."', ".
+                    $qua.", '".$unit."', ".$calccalories.", ".$calcprotein.", ".$calccarb.", ".$calcfat.");";
+                $result = mysqli_query($connection,$query);
+                if($result) {
+                    //$_SESSION['login'] = $username; // Initializing Session
+                    //header("location: login.php"); // Redirecting To Other Page
+                }else{
+                    echo $query."<br/>";
+                    echo "Sql query failed : ".$db_name." - ".mysqli_errno($connection)." - ".mysqli_error($connection);
+
+                }
+
+                /*echo $row['amount']."<br/>";
+                echo $row['protein']."<br/>";;
+                echo $row['carbohydrate']."<br/>";;
+                echo $row['fat']."<br/>";;
+                echo $row['calories']."<br/>";*/
+                //$error = "Login you requested is already taken.";
             }else{
                 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
                 //$connection = mysqli_connect("localhost", "root", "");
@@ -56,15 +88,7 @@ if (isset($_POST['submit'])) {
 // Selecting Database
                 //$db = mysqli_select_db("company", $connection);
 // SQL query to fetch information of registerd users and finds user match.
-                $query = "INSERT INTO webuser (Guid, login, pwd, email, usertype) VALUES(uuid(), '".$username."', '".$password."', '".$email."', 1);";
-                $result = mysqli_query($connection,$query);
-                if($result) {
-                    $_SESSION['login'] = $username; // Initializing Session
-                    header("location: login.php"); // Redirecting To Other Page
-                }else{
-                    echo $query."<br/>";
-                    echo "Sql query failed : ".$db_name." - ".mysqli_errno($connection)." - ".mysqli_error($connection);
-                }
+
             }
         }
         mysqli_close($connection); // Closing Connection
