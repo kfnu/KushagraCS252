@@ -115,7 +115,7 @@ if (!$query) {
 </head>
 <body>
 <div class="header">
-    <?php include("headerguest.php");?>
+    <?php include("headeruser.php");?>
 </div>
 	<h1 style="color: white">List of Food Items</h1>
 	<table class="data-table">

@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
             if ($rows == 1) {
                 //echo "qpwoeipqowe";
                 $_SESSION['login'] = $username; // Initializing Session
-                header("location: foodlist.html"); // Redirecting To Other Page
+                header("location: foodlist.php"); // Redirecting To Other Page
             } else {
                 $error = "Username or Password is invalid";
             }

@@ -19,10 +19,11 @@ echo "</tr>";
 echo "</table>";
 echo "</td>";*/
 echo "</tr>";
-echo "<tr style='background-color: #ffcccc'><td><a href='fooditem.php'>Food Item</a></td>";
-echo "<td><a href='addCal.php'>Add Calories</a></td>";
-echo "<td><a href='editCal.php'>Edit Calories</a></td>";
-echo "<td><a href='deleteCal.php'>Delete Calories</a></td>";
+echo "<tr style='background-color: #ffcccc'><td width='50%'></td>";
+echo "<td style='white-space: nowrap; '><a href='fooditem.php'>Food Item</a>&nbsp;<a href='addCal.php'>Add Calories</a></td>";
+echo "<td style='white-space: nowrap; '></td>";
+echo "<td style='white-space: nowrap; '><a href='editCal.php'>Edit Calories</a></td>";
+echo "<td style='white-space: nowrap; '><a href='deleteCal.php'>Delete Calories</a></td>";
 echo "<td><a href='report.php'>Report</a></td></tr>";
 
 echo "</table>";
