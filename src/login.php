@@ -17,7 +17,6 @@ if (isset($_POST['submit'])) {
         $password=$_POST['password'];
         //echo $username;
         //Selecting Database
-
         //require_once("model/config.php");
         $db_host = "us-cdbr-iron-east-05.cleardb.net";
         $db_user = "bf980adbdc50be";
@@ -32,7 +31,6 @@ if (isset($_POST['submit'])) {
             die('Database error');
         }
 // To protect MySQL injection for Security purpose
-
         $username = stripslashes($username);
         $password = stripslashes($password);
         //echo $username;
@@ -44,11 +42,15 @@ if (isset($_POST['submit'])) {
         $result = mysqli_query($connection,$query);
         if($result) {
             $rows = mysqli_num_rows($result);
-
             if ($rows == 1) {
                 //echo "qpwoeipqowe";
                 $_SESSION['login'] = $username; // Initializing Session
+                //echo $username." ".$_SESSION['login'];
+                //session_regenerate_id(true);
                 header("location: foodlist.php"); // Redirecting To Other Page
+                //exit();
+                //die();
+                exit;
             } else {
                 $error = "Username or Password is invalid";
             }

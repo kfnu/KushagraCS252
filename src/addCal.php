@@ -5,7 +5,11 @@
  * Date: 12/7/2017
  * Time: 2:15 AM
  */
-session_start(); // Starting Session
+session_start();
+if(!isset($_SESSION["login"])){
+    header("location: login.php");
+}
+//session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 //echo "username=".$_POST['username'];
 if (isset($_POST['submit'])) {
@@ -49,14 +53,14 @@ if (isset($_POST['submit'])) {
                 $foodcarb=$row['carbohydrate'];
                 $foodfat=$row['fat'];
                 $foodcalories=$row['calories'];
-                $factor = $qua/$amount;
-                $calcprotein=$factor*$foodprotein;
-                $calccarb=$factor*$foodcarb;
-                $calcfat=$factor*$foodfat;
-                $calccalories=$factor*$foodcalories;
-
-                $query = "INSERT INTO userfood (Guid, login, itemid, mealdate, meal, quantity, unit, calories, protein, carbohydrate, fat) 
-                  VALUES(uuid(), '".(""+$_SESSION['login'])."', ".$item.", '".$_POST['caldate']."', '".$_POST['meal']."', ".
+                $factor = floatval($qua)/floatval($foodamount);
+                echo "factor=".$factor."<br/>";
+                $calcprotein=$factor*floatval($foodprotein);
+                $calccarb=$factor*floatval($foodcarb);
+                $calcfat=$factor*floatval($foodfat);
+                $calccalories=$factor*floatval($foodcalories);
+                $query = "INSERT INTO userfood (Guid, login, itemid, mealdate, meal, quantity, unit, calories, protein, carbohydrate, fat)
+                  VALUES(uuid(), '".("".$_SESSION['login'])."', ".$item.", '".$_POST['caldate']."', '".$_POST['meal']."', ".
                     $qua.", '".$unit."', ".$calccalories.", ".$calcprotein.", ".$calccarb.", ".$calcfat.");";
                 $result = mysqli_query($connection,$query);
                 if($result) {
@@ -65,9 +69,7 @@ if (isset($_POST['submit'])) {
                 }else{
                     echo $query."<br/>";
                     echo "Sql query failed : ".$db_name." - ".mysqli_errno($connection)." - ".mysqli_error($connection);
-
                 }
-
                 /*echo $row['amount']."<br/>";
                 echo $row['protein']."<br/>";;
                 echo $row['carbohydrate']."<br/>";;
@@ -88,7 +90,6 @@ if (isset($_POST['submit'])) {
 // Selecting Database
                 //$db = mysqli_select_db("company", $connection);
 // SQL query to fetch information of registerd users and finds user match.
-
             }
         }
         mysqli_close($connection); // Closing Connection
@@ -152,7 +153,6 @@ if (isset($_POST['submit'])) {
             $db_pass = "867b73f4";
             $db_name = "heroku_5945d53bb9e3d51";
             $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
             $query = "SELECT id, CONCAT(item, ' (',unit,')') AS itemMod FROM fooditem ORDER By item ASC;";
             //$result = conn($query);
             //if (($result)||(mysql_errno == 0))
@@ -172,18 +172,18 @@ if (isset($_POST['submit'])) {
             <input style="border-color: #3B0B17; border-width: thick;" type="text" name="qua" value="<?php echo $_POST["qua"]; ?>" placeholder="quantity"/>
             <input name="submit" type="submit" value=" Add ">
         </form>
-            <!--<input type="text" name="username" placeholder="name"/>
-            <input type="password" name="password" placeholder="password"/>
-            <input type="text" name="email" placeholder="email address"/>
-            <input name="submit" type="submit" value=" Create ">
-            <p class="message">Already registered? <a href="login.php">Sign In</a></p>
-        </form>
-        <!--<form class="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <button>login</button>
-            <p class="message">Not registered? <a href="#">Create an account</a></p>
-        </form>-->
+        <!--<input type="text" name="username" placeholder="name"/>
+        <input type="password" name="password" placeholder="password"/>
+        <input type="text" name="email" placeholder="email address"/>
+        <input name="submit" type="submit" value=" Create ">
+        <p class="message">Already registered? <a href="login.php">Sign In</a></p>
+    </form>
+    <!--<form class="login-form">
+        <input type="text" placeholder="username"/>
+        <input type="password" placeholder="password"/>
+        <button>login</button>
+        <p class="message">Not registered? <a href="#">Create an account</a></p>
+    </form>-->
     </div>
     <div style="width: 100%; text-align:center;">
         <span name="spMsg" style="color: #FFFFFF;"><?php echo $error; ?></span>
