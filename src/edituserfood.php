@@ -36,6 +36,8 @@ if (isset($_GET['id'])) {
             $mydate = mktime(0, 0, 0, $dateArray[1], $dateArray[2], $dateArray[0]);
             $date = date('m/d/Y',$mydate);
             $mealdate = $date;
+            $itemid = $row['itemid'];
+            //$meal= $row['meal'];
         }
     }
     mysqli_close($connection);
@@ -94,9 +96,9 @@ if (isset($_POST['submit'])) {
                 $calccarb=$factor*floatval($foodcarb);
                 $calcfat=$factor*floatval($foodfat);
                 $calccalories=$factor*floatval($foodcalories);
-                $query = "INSERT INTO userfood (Guid, login, itemid, mealdate, meal, quantity, unit, calories, protein, carbohydrate, fat)
-                  VALUES(uuid(), '".("".$_SESSION['login'])."', ".$item.", '".$date."', '".$_POST['meal']."', ".
-                    $qua.", '".$unit."', ".$calccalories.", ".$calcprotein.", ".$calccarb.", ".$calcfat.");";
+                $query = "UPDATE userfood SET itemid=$item, mealdate='".$date."', meal='".$meal."', quantity=$qua,
+                        unit='".$unit."', calories=$calccalories, protein=$calcprotein, carbohydrate=$calccarb, fat=$calcfat
+                   WHERE(Guid='".$Guid."');";
                 $result = mysqli_query($connection,$query);
                 if($result) {
                     //$_SESSION['login'] = $username; // Initializing Session
@@ -174,11 +176,24 @@ if (isset($_POST['submit'])) {
             //if (($result)||(mysql_errno == 0))
             $result = mysqli_query($conn,$query);
             //$result = $mysqli->query($query);
+            //echo "itemid=".$itemid."<br/>";
             if ($result) {
-                echo "<select name='item' id='item' value=".$_POST["item"].">";
-                echo "<option value='" . "0" . "' selected=\"selected\"'>" . "Select" . "</option>";
+                //echo "here";
+                $temp = '';
+                if((strlen($_POST["item"])> 0)) $temp=$_POST["item"]; else $temp=$itemid;
+                //echo "temp=".$temp;
+                echo "<select name='item' id='item' value=". $temp .">";
+                //echo "<option value='" . "0" . "' selected=\"selected\"'>" . "Select" . "</option>";
+                echo "<option value='" . "0" . "' >" . "Select" . "</option>";
                 while ($row = mysqli_fetch_array($result)) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['itemMod'] . "</option>";
+                    //echo "here 2";
+                    $selectCurrent='';
+                    //echo "id=".$row['id']." ".intval($row['id'])."<br/>";
+                    if(intval($row['id'])==intval($itemid)) {
+                        //echo $row['id'];
+                        $selectCurrent=' selected';
+                    }
+                    echo "<option value='" . $row['id'] . "' .$selectCurrent. '>" . $row['itemMod'] . "</option>";
                 }
                 echo "</select>";
             }
