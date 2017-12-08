@@ -27,7 +27,7 @@ if (!$query) {
 ?>
 <html>
 <head>
-    <link rel="stylesheet" href="css/headeruser.css">
+    <link rel="stylesheet" href="css/calorie.css">
     <title>Add Up Your Calories</title>
     <style type="text/css">
         body {
